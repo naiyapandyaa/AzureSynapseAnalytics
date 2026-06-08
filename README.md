@@ -10,13 +10,18 @@
 
 
 # 3.serverless sql pool 
-# a.(openrawset)
+
+### a.(openrawset)
+
 <img width="1560" height="887" alt="image" src="https://github.com/user-attachments/assets/1274b19d-f98d-4d39-9515-da9e10cf54dd" />
 <img width="1572" height="822" alt="image" src="https://github.com/user-attachments/assets/d74a4b57-7c65-4992-be86-4042237c170c" />
+
 # b.External Table
 <img width="1116" height="737" alt="image" src="https://github.com/user-attachments/assets/3351886a-9329-414a-8cb7-0ff61f7fc51f" />
+
 # c.CETAS
 <img width="767" height="712" alt="image" src="https://github.com/user-attachments/assets/fffaff86-d12f-45c2-b454-adc1b0d41c72" />
+
 # d.View
 <img width="772" height="696" alt="image" src="https://github.com/user-attachments/assets/6fa1d940-4998-45f6-8a5d-ad20f799afef" />
 
