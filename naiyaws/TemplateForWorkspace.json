@@ -247,6 +247,26 @@
 				"type": "SqlQuery"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CETAS_Polybase')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE parquet_table\n(\n    Dealer_ID VARCHAR(20),\n    Model_ID VARCHAR(20),\n    Branch_ID VARCHAR(20),\n    Date_ID VARCHAR(20),\n    Units_Sold INT,\n    Revenue BIGINT\n)\nWITH\n(\n    LOCATION = '/cetas_revenue',\n    DATA_SOURCE = raw_ext_source,\n    FILE_FORMAT = parquet_format\n);\n\nCREATE TABLE poly_table\nWITH(\n    DISTRIBUTION=ROUND_ROBIN\n)\nAS\nSELECT * FROM parquet_table\n\n\n\n\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "dedicatedsqlpoolnaiya",
+						"poolName": "dedicatedsqlpoolnaiya"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
 		}
 	]
 }
