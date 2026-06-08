@@ -234,7 +234,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "--COPY DATA\n\nCREATE TABLE copy_into_table\n(\n    Dealer_ID VARCHAR(20),\n    Model_ID VARCHAR(20),\n    Branch_ID VARCHAR(20),\n    Date_ID VARCHAR(20),\n    Units_Sold INT,\n    Revenue BIGINT\n)\nWITH(\n    DISTRIBUTION = ROUND_ROBIN\n) \n\nSELECT * FROM copy_into_table;\n\n--LOAD DATA\n\nCOPY INTO copy_into_table\n(\n    Dealer_ID,\n    Model_ID,\n    Branch_ID,\n    Date_ID,\n    Units_Sold,\n    Revenue\n)\nFROM 'https://extsynapsestorage.dfs.core.windows.net/raw/cetas_revenue/'\n\nWITH\n(\n    FILE_TYPE = 'PARQUET',\n    CREDENTIAL = (\n        IDENTITY = 'Managed Identity'\n    )\n);\n\nSELECT * FROM copy_into_table",
+					"query": "--COPY DATA\n\nCREATE TABLE copy_into_table\n(\n    Dealer_ID VARCHAR(20),\n    Model_ID VARCHAR(20),\n    Branch_ID VARCHAR(20),\n    Date_ID VARCHAR(20),\n    Units_Sold INT,\n    Revenue BIGINT\n)\nWITH(\n    DISTRIBUTION = ROUND_ROBIN\n) \n\nSELECT * FROM copy_into_table;\n\n--LOAD DATA\n\nCOPY INTO copy_into_table\n(\n    Dealer_ID,\n    Model_ID,\n    Branch_ID,\n    Date_ID,\n    Units_Sold,\n    Revenue\n)\nFROM 'https://extsynapsestorage.dfs.core.windows.net/raw/cetas_revenue/'\n\nWITH\n(\n    FILE_TYPE = 'PARQUET',\n    CREDENTIAL = (\n        IDENTITY = 'Managed Identity'\n    )\n);\n\nSELECT COUNT(*) AS TotalRows\nFROM copy_into_table;\n\nSELECT TOP 10 *\nFROM copy_into_table;",
 					"metadata": {
 						"language": "sql"
 					},
