@@ -1,0 +1,17 @@
+{
+	"name": "distributed table",
+	"properties": {
+		"content": {
+			"query": "--Round Robin \n\nCREATE TABLE round_table(\n   id INT,\n   name VARCHAR(20)\n)\nWITH(\n    DISTRIBUTION = ROUND_ROBIN\n);\n\nINSERT INTO round_table(id,name)\nVALUES (1,'naiya');\n\nSELECT * FROM round_table\n\n\n--REPLICATE \nCREATE SCHEMA gold;\n\nCREATE TABLE gold.dim_product(\n   prod_key INT,\n   prod_name VARCHAR(20)\n)\nWITH(\n    DISTRIBUTION = REPLICATE\n);\n\n\n--HASH\n\nCREATE TABLE gold.dim_fact(\n   prod_key INT,\n   revenue INT,\n   cost INT\n)\nWITH(\n    DISTRIBUTION = HASH(prod_key)\n);",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dedicatedsqlpoolnaiya",
+				"poolName": "dedicatedsqlpoolnaiya"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
