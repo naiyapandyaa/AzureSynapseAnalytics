@@ -2,7 +2,7 @@
 	"name": "openrawset",
 	"properties": {
 		"content": {
-			"query": "--Master Key \nCREATE MASTER KEY ENCRYPTION BY PASSWORD = ''\n\n--Credintial\nCREATE DATABASE SCOPED CREDENTIAL naiyacreds\nWITH\n    IDENTITY = 'Managed Identity';\n\n--Create External Data Source\nCREATE EXTERNAL DATA SOURCE raw_ext_source\nWITH(\n    LOCATION = '',\n    CREDENTIAL=naiyacreds\n)\n\n--Craete External File Format\nCREATE EXTERNAL FILE FORMAT csv_format\n\n\n\n\n--Openrowset Function\nSELECT \n*\nFROM\n   OPENROWSET(\n    BULK '',\n    DATA_SOURCE = raw_ext_source,\n    FORMAT = 'csv'\n)\n\n",
+			"query": "--Master Key \nCREATE MASTER KEY ENCRYPTION BY PASSWORD = ''\n\n--Credintial\nCREATE DATABASE SCOPED CREDENTIAL naiyacreds\nWITH\n    IDENTITY = 'Managed Identity';\n\n--Create External Data Source\nCREATE EXTERNAL DATA SOURCE raw_ext_source\nWITH(\n    LOCATION = 'https://extsynapsestorage.dfs.core.windows.net/raw',\n    CREDENTIAL=naiyacreds\n)\n\n--Craete External File Format\nCREATE EXTERNAL FILE FORMAT csv_format\nWITH (\n    FORMAT_TYPE = DELIMITEDTEXT,\n    FORMAT_OPTIONS (\n        FIELD_TERMINATOR = ',',\n        STRING_DELIMITER = '\"',\n        FIRST_ROW = 1\n    )\n);\n\n--For PARQUET FILE\nCREATE EXTERNAL FILE FORMAT parquet_format\nWITH(\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.GzipCodec'\n)\n\n\n\n--Openrowset Function\nSELECT *\nFROM OPENROWSET(\n    BULK 'revenue',\n    DATA_SOURCE = 'raw_ext_source',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    HEADER_ROW = TRUE\n)\nWITH (\n    Dealer_ID VARCHAR(20),\n    Model_ID VARCHAR(20),\n    Branch_ID VARCHAR(20),\n    Date_ID VARCHAR(20),\n    Units_Sold INT,\n    Revenue BIGINT\n) AS rows;",
 			"metadata": {
 				"language": "sql"
 			},
