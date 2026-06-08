@@ -1,0 +1,17 @@
+{
+	"name": "ExternalTable",
+	"properties": {
+		"content": {
+			"query": "-- DROP EXTERNAL TABLE revenue_ext_table\nCREATE EXTERNAL TABLE revenue_ext_table(\n    Dealer_ID VARCHAR(20),\n    Model_ID VARCHAR(20),\n    Branch_ID VARCHAR(20),\n    Date_ID VARCHAR(20),\n    Units_Sold BIGINT,\n    Revenue BIGINT\n)\nWITH(\n    LOCATION = 'revenue',\n    DATA_SOURCE = raw_ext_source,\n    FILE_FORMAT = csv_format\n)\n\nSELECT COUNT(*) FROM revenue_ext_table; --1857\nSELECT * FROM revenue_ext_table;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "naiyaserverless_sqlpool",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
