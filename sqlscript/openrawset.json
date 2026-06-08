@@ -1,0 +1,17 @@
+{
+	"name": "openrawset",
+	"properties": {
+		"content": {
+			"query": "--Master Key \nCREATE MASTER KEY ENCRYPTION BY PASSWORD = ''\n\n--Credintial\nCREATE DATABASE SCOPED CREDENTIAL naiyacreds\nWITH\n    IDENTITY = 'Managed Identity';\n\n--Create External Data Source\nCREATE EXTERNAL DATA SOURCE raw_ext_source\nWITH(\n    LOCATION = '',\n    CREDENTIAL=naiyacreds\n)\n\n--Craete External File Format\nCREATE EXTERNAL FILE FORMAT csv_format\n\n\n\n\n--Openrowset Function\nSELECT \n*\nFROM\n   OPENROWSET(\n    BULK '',\n    DATA_SOURCE = raw_ext_source,\n    FORMAT = 'csv'\n)\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "naiyaserverless_sqlpool",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
