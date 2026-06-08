@@ -187,6 +187,26 @@
 				"type": "SqlQuery"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CETAS')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE EXTERNAL TABLE revenue_cetas\nWITH(\n    LOCATION = 'cetas_revenue',\n    DATA_SOURCE = raw_ext_source,\n    FILE_FORMAT = parquet_format\n)\nAS\nSELECT *\nFROM OPENROWSET(\n    BULK 'revenue/*.csv',\n    DATA_SOURCE = 'raw_ext_source',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    HEADER_ROW = TRUE\n)\nWITH (\n    Dealer_ID VARCHAR(20),\n    Model_ID VARCHAR(20),\n    Branch_ID VARCHAR(20),\n    Date_ID VARCHAR(20),\n    Units_Sold INT,\n    Revenue BIGINT\n) AS rows;",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "naiyaserverless_sqlpool",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
 		}
 	]
 }
